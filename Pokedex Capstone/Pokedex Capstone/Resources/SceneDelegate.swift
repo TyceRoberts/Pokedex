@@ -17,6 +17,23 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let _ = (scene as? UIWindowScene) else { return }
+        
+        PokeController.shared.fetchPokes { result in
+
+            // This is where the result type is very handy
+            // On success we can reload our TableView, or whatever you want
+            switch result {
+            case .success(let pokes):
+                print("Looks like we got some Pokes")
+                pokes.forEach { poke in
+                    print(poke.name)
+                }
+            // On Failure we can show an error or tell the user there was a problem
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

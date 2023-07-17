@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="8dk-Rs-8xw">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Pokemon-->
+        <scene sceneID="oBf-An-Nk6">
+            <objects>
+                <tableViewController id="wkv-jD-3xu" customClass="PokemonDisplayedTableViewController" customModule="Pokedex_Capstone" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="D1Z-aQ-0cQ">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="50" id="d6Z-tq-6Aa" customClass="PokemonDisplayedTableViewCell" customModule="Pokedex_Capstone" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="50" width="393" height="50"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="d6Z-tq-6Aa" id="Owg-Gv-FIY">
+                                    <rect key="frame" x="0.0" y="0.0" width="393" height="50"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l4w-JG-haj">
+                                            <rect key="frame" x="44" y="15" width="45" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="wkv-jD-3xu" id="Q9o-yA-7N2"/>
+                            <outlet property="delegate" destination="wkv-jD-3xu" id="pqH-ot-ann"/>
+                        </connections>
+                    </tableView>
+                    <tabBarItem key="tabBarItem" title="Pokemon" id="C2P-Nw-cAa"/>
+                    <navigationItem key="navigationItem" id="784-lG-Zmp"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iaS-so-LMy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1016.030534351145" y="-2375.3521126760565"/>
+        </scene>
+        <!--Favorites-->
+        <scene sceneID="80A-Ti-DcE">
+            <objects>
+                <viewController id="WAG-tp-eXX" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="BTi-ae-XXy">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="Al9-LA-Ikg"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Favorites" id="Ark-wo-maj"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="C5C-UO-qRd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-297" y="-2375"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="HpP-kL-U1Z">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="8dk-Rs-8xw" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="JI5-LY-lku">
+                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="LnL-f3-s67" kind="relationship" relationship="rootViewController" id="hnb-zA-wfB"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mQU-2X-bfc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2680.1526717557249" y="-2374.6478873239439"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="aJx-4I-Z9K">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="LnL-f3-s67" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="gaE-ah-kvh"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="rvm-e3-Eif">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="wkv-jD-3xu" kind="relationship" relationship="viewControllers" id="Wl8-sm-dny"/>
+                        <segue destination="WAG-tp-eXX" kind="relationship" relationship="viewControllers" id="7PD-uD-IoZ"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="R0u-AX-icK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1753.4351145038167" y="-2374.6478873239439"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
