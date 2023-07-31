@@ -13,6 +13,8 @@
 		4C90E2D02A64F2B2009EB8F8 /* PokeError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C90E2CF2A64F2B2009EB8F8 /* PokeError.swift */; };
 		4C90E2D22A64F82C009EB8F8 /* PokemonDisplayedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C90E2D12A64F82C009EB8F8 /* PokemonDisplayedTableViewCell.swift */; };
 		4C90E2D42A64F93C009EB8F8 /* PokemonDisplayedTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C90E2D32A64F93C009EB8F8 /* PokemonDisplayedTableViewController.swift */; };
+		4C90E2D62A785FF3009EB8F8 /* Pokemon Data Source.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C90E2D52A785FF3009EB8F8 /* Pokemon Data Source.swift */; };
+		4C90E2D82A786EF0009EB8F8 /* PokemonDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C90E2D72A786EF0009EB8F8 /* PokemonDetailViewController.swift */; };
 		4C9E34002A37B1C5005116F4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9E33FF2A37B1C5005116F4 /* AppDelegate.swift */; };
 		4C9E34022A37B1C5005116F4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9E34012A37B1C5005116F4 /* SceneDelegate.swift */; };
 		4C9E34072A37B1C5005116F4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C9E34052A37B1C5005116F4 /* Main.storyboard */; };
@@ -28,6 +30,8 @@
 		4C90E2CF2A64F2B2009EB8F8 /* PokeError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokeError.swift; sourceTree = "<group>"; };
 		4C90E2D12A64F82C009EB8F8 /* PokemonDisplayedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDisplayedTableViewCell.swift; sourceTree = "<group>"; };
 		4C90E2D32A64F93C009EB8F8 /* PokemonDisplayedTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDisplayedTableViewController.swift; sourceTree = "<group>"; };
+		4C90E2D52A785FF3009EB8F8 /* Pokemon Data Source.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Pokemon Data Source.swift"; sourceTree = "<group>"; };
+		4C90E2D72A786EF0009EB8F8 /* PokemonDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDetailViewController.swift; sourceTree = "<group>"; };
 		4C9E33FC2A37B1C5005116F4 /* Pokedex Capstone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pokedex Capstone.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C9E33FF2A37B1C5005116F4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4C9E34012A37B1C5005116F4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -71,6 +75,7 @@
 			isa = PBXGroup;
 			children = (
 				4C90E2CF2A64F2B2009EB8F8 /* PokeError.swift */,
+				4C90E2D52A785FF3009EB8F8 /* Pokemon Data Source.swift */,
 			);
 			path = "Helper and Extension ";
 			sourceTree = "<group>";
@@ -109,6 +114,7 @@
 			isa = PBXGroup;
 			children = (
 				4C90E2D32A64F93C009EB8F8 /* PokemonDisplayedTableViewController.swift */,
+				4C90E2D72A786EF0009EB8F8 /* PokemonDetailViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -228,9 +234,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C90E2D62A785FF3009EB8F8 /* Pokemon Data Source.swift in Sources */,
 				4C90E2BE2A3B9057009EB8F8 /* Core Data.xcdatamodeld in Sources */,
 				4C9E340A2A37B1C5005116F4 /* Pokedex_Capstone.xcdatamodeld in Sources */,
 				4C90E2D02A64F2B2009EB8F8 /* PokeError.swift in Sources */,
+				4C90E2D82A786EF0009EB8F8 /* PokemonDetailViewController.swift in Sources */,
 				4C90E2D22A64F82C009EB8F8 /* PokemonDisplayedTableViewCell.swift in Sources */,
 				4C90E2CA2A42671D009EB8F8 /* Pokemon API Model.swift in Sources */,
 				4C90E2D42A64F93C009EB8F8 /* PokemonDisplayedTableViewController.swift in Sources */,

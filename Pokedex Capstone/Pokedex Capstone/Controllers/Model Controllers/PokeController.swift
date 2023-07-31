@@ -75,33 +75,3 @@ class PokeController {
         
     }
 }
-
-class ViewController: UIViewController {
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-// Call our fetch function on our PokeController via the sharedInstance
-PokeController.shared.fetchPokes { result in
-
-    // This is where the result type is very handy
-    // On success we can reload our TableView, or whatever you want
-    switch result {
-    case .success(let pokes):
-        print("Looks like we got some Pokes")
-        pokes.forEach { poke in
-            //insert code to add poke names to Core Data or Add the names to an Array, save them to a User Default.
-            print(poke.name)
-        }
-        
-        // Print inside the success block
-        print(PokeController.shared.pokeMinimals)
-        
-        // On Failure we can show an error or tell the user there was a problem
-    case .failure(let error):
-        print(error.localizedDescription)
-        
-            }
-        }
-    }
-}
