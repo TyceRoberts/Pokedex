@@ -26,40 +26,40 @@ struct PokeMinimal: Codable {
 }
 
 class PokeController {
-
+    
     static let shared: PokeController = PokeController()
-
+    
     static let baseURL: String = "https://pokeapi.co/api/v2/pokemon/?limit=250"
     //base url
     var pokeMinimals: [PokeMinimal] = []
-
+    
     // `Result` is us declaring what Success and Failure look like, in terms of our network request
     // Success on the left, Failure on the right.
     // If we succeed, we should have an array of PokeMinimal objects.
     // If we fail, we should have a PokeError(an error of our own creation, conforming to `Error`)
-
+    
     func fetchPokes(completion: @escaping (Result<[PokeMinimal], PokeError>) -> Void) {
-
+        
         // Get the URL that we will be accessing (notice this is static, so we access through the Type `PokeController`)
         guard let url = URL(string: PokeController.baseURL) else {
             completion(.failure(.invalidURL))
             return
         }
-
+        
         // Start a URLSession to send a network request
         // When a session completes, you will have 3 things
         // Some data, an HTTPResponse, or an error
         URLSession.shared.dataTask(with: url) { data, response, error in
-
+            
             // Check for an error
             if let error = error {
                 completion(.failure(.thrownError(error.localizedDescription)))
                 return
             }
-
+            
             // Ensure there is data
             guard let data = data else { return completion(.failure(.noData)) }
-
+            
             // Try to decode the data
             do {
                 var decodedData = try JSONDecoder().decode(PokeResponse.self, from: data)
@@ -70,7 +70,7 @@ class PokeController {
                 completion(.failure(.unableToDecode))
                 return
             }
-
+            
         }.resume()
         
     }

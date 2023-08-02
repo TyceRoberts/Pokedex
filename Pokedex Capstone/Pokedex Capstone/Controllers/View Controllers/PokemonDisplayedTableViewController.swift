@@ -20,87 +20,99 @@ class PokemonDisplayedTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Call our fetch function on our PokeController via the sharedInstance
+        // Call our Pokemon fetch function
+        fetchPokemon()
+        
+        //Sort data in the TableView
+        self.tableView.dataSource = self.dataSource
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Pokemon")
+        request.returnsObjectsAsFaults = false
+        
+        let sortDescriptor = NSSortDescriptor(key: "order", ascending: true)
+        request.sortDescriptors = [sortDescriptor]
+        
+        do {
+            let result = try context.fetch(request)
+            self.dataSource.pokemon = result as! [NSManagedObject]
+            self.tableView.reloadData()
+        } catch {
+            print("Failed")
+        }
+        
+        tableView.isScrollEnabled = true
+        tableView.tableFooterView = UIView()
+        
+    } // End of View did Load
+    
+    
+    func fetchPokemon() {
         PokeController.shared.fetchPokes { result in
-
-            // This is where the result type is very handy
-            // On success we can reload our TableView, or whatever you want
             switch result {
             case .success(let pokes):
-                print("Looks like we got some Pokes")
-                pokes.forEach { poke in
-                    //insert code to add poke names to Core Data or Add the names to an Array, save them to a User Default.
-                    print(poke.name)
+                let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+                let entity = NSEntityDescription.entity(forEntityName: "Pokemon", in: context)!
+                
+                // Delete all existing Pokémon data to prevent duplicates
+                let deleteRequest = NSBatchDeleteRequest(fetchRequest: NSFetchRequest(entityName: "Pokemon"))
+                do { try context.execute(deleteRequest) } catch { print("Failed to delete existing Pokémon") }
+                
+                // Save new Pokémon names
+                for poke in pokes {
+                    let newPokemon = NSManagedObject(entity: entity, insertInto: context)
+                    newPokemon.setValue(poke.name, forKey: "name")
                 }
                 
-                // Print inside the success block
-                print(PokeController.shared.pokeMinimals)
-                
-                // On Failure we can show an error or tell the user there was a problem
-            case .failure(let error):
-                print(error.localizedDescription)
-                
-                    }
+                do {
+                    try context.save()
+                } catch let error as NSError {
+                    print("Could not save. (error), (error.userInfo)")
                 }
-        // End of fetch request
-        
-        self.tableView.dataSource = self.dataSource
-
-                let appDelegate = UIApplication.shared.delegate as! AppDelegate
-                let context = appDelegate.persistentContainer.viewContext
+                
+                // Fetch updated Pokémon data
                 let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Pokemon")
-                request.returnsObjectsAsFaults = false
                 do {
                     let result = try context.fetch(request)
                     self.dataSource.pokemon = result as! [NSManagedObject]
                     self.tableView.reloadData()
                 } catch {
-                    print("Failed")
+                    print("Failed to fetch Pokémon")
                 }
-        
-        
-    } // End of View did Load
-
+                
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }//End of Function
+    
     // MARK: - Table view data source
-
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // Get the selected Pokemon
         let selectedPokemon = dataSource.pokemon[indexPath.row]
-
-        // Create an instance of the detail view controller
-        let detailViewController = PokemonDetailViewController()
-
-        // Pass the selected Pokemon to the detail view controller
-        detailViewController.pokemon = selectedPokemon
-
-        // Present the detail view controller
-        navigationController?.pushViewController(detailViewController, animated: true)
+        
+        // Get the storyboard
+        let storyboard = UIStoryboard(name: "Main", bundle: nil) // Replace "Main" with your storyboard name if it's different
+        
+        // Create an instance of the detail view controller from the storyboard
+        if let detailViewController = storyboard.instantiateViewController(withIdentifier: "PokemonDetailViewController") as? PokemonDetailViewController {
+            // Pass the selected Pokemon to the detail view controller
+            detailViewController.pokemon = selectedPokemon
+            
+            // Present the detail view controller
+            navigationController?.pushViewController(detailViewController, animated: true)
+        }
     }
-
-    
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
-        return cell
-    }
-
-    
-   
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-   
     
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
     }
     
-
+    
 }

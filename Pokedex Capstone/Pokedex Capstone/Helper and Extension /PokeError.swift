@@ -12,10 +12,10 @@ enum PokeError: Error {
     case unableToDecode
     case noData
     case thrownError(String)
-
+    
     var description: String {
         switch self {
-
+            
         case .invalidURL:
             return "Invalid URL"
         case .unableToDecode:
