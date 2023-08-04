@@ -9,54 +9,50 @@ import Foundation
 
 
 struct PokemonListResponse: Decodable {
-    var results: [PokemonMinimal]
+    var results: [PokemonModel]
 }
-
-struct PokemonMinimal: Decodable  {
-    var name: String
-    var url: String
-    
-} //End of struct
 
 struct PokemonModel: Codable {
     var name: String = ""
-    var url: PokemonDataUrl
-    
+    var url: String = ""
+
 } //End of struct
 
-struct PokemonDataUrl: Codable { 
-    var moves: String = ""
-    var name: String = ""
-    var sprites: String = ""
-    var stats: String = ""
-    var types: String = ""
-} //End of struct
+struct PokemonDataUrl: Codable {
+    let name: String
+    let sprites: Sprites
+    let stats: [Stats]
+    let types: [Types]
+    // If you want to include moves, please provide the structure of the "moves" field
+}
 
-// see which data I want from each different object information.
+struct Sprites: Codable {
+    let front_default: String
+}
 
-struct Moves {
-    var name: String = ""
-    
-} //End of struct
+struct Stats: Codable {
+    let base_stat: Int
+    let effort: Int
+    let stat: StatDetail
+}
 
-struct Sprites {
-    var front_default: String = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"
-        //displays a basic picture of the pokemon.
-    
-} //End of struct
+struct StatDetail: Codable {
+    let name: String
+    let url: String
+}
 
-struct Stats {
-    var base_stat: Int = 0
-    var name = Name()
-    
-} //End of struct
+struct Types: Codable {
+    let slot: Int
+    let type: TypeDetail
+}
+
+struct TypeDetail: Codable {
+    let name: String
+    let url: String
+}
+
 
 struct Name {
     var name: String = ""
     //Using struct to identify the different stats such as Speed, Attack, Defense, etc.
-} //End of struct
-
-struct Types {
-    var slot: Int = 0
-    var name = Name()
 } //End of struct

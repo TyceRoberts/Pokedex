@@ -47,7 +47,6 @@ class PokemonDisplayedTableViewController: UITableViewController {
         
     } // End of View did Load
     
-    
     func fetchPokemon() {
         PokeController.shared.fetchPokes { result in
             switch result {
@@ -55,20 +54,21 @@ class PokemonDisplayedTableViewController: UITableViewController {
                 let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
                 let entity = NSEntityDescription.entity(forEntityName: "Pokemon", in: context)!
                 
-                // Delete all existing Pokémon data to prevent duplicates
+                // Delete existing Pokémon data
                 let deleteRequest = NSBatchDeleteRequest(fetchRequest: NSFetchRequest(entityName: "Pokemon"))
                 do { try context.execute(deleteRequest) } catch { print("Failed to delete existing Pokémon") }
                 
-                // Save new Pokémon names
+                // Save new Pokémon names and sprites
                 for poke in pokes {
                     let newPokemon = NSManagedObject(entity: entity, insertInto: context)
                     newPokemon.setValue(poke.name, forKey: "name")
+                    newPokemon.setValue(poke.url, forKey: "url")
                 }
                 
                 do {
                     try context.save()
                 } catch let error as NSError {
-                    print("Could not save. (error), (error.userInfo)")
+                    print("Could not save. \(error), \(error.userInfo)")
                 }
                 
                 // Fetch updated Pokémon data
@@ -86,33 +86,48 @@ class PokemonDisplayedTableViewController: UITableViewController {
             }
         }
     }//End of Function
+
     
     // MARK: - Table view data source
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // Get the selected Pokemon
+        // Get the selected Pokemon as an NSManagedObject
         let selectedPokemon = dataSource.pokemon[indexPath.row]
-        
-        // Get the storyboard
-        let storyboard = UIStoryboard(name: "Main", bundle: nil) // Replace "Main" with your storyboard name if it's different
-        
-        // Create an instance of the detail view controller from the storyboard
-        if let detailViewController = storyboard.instantiateViewController(withIdentifier: "PokemonDetailViewController") as? PokemonDetailViewController {
-            // Pass the selected Pokemon to the detail view controller
-            detailViewController.pokemon = selectedPokemon
-            
-            // Present the detail view controller
-            navigationController?.pushViewController(detailViewController, animated: true)
+
+        // Use Key-Value Coding to get the "url" attribute as a String
+        if let urlString = selectedPokemon.value(forKey: "url") as? String {
+            // Fetch Pokemon details using the URL
+            PokeController.shared.fetchPokemonDetails(url: urlString) { result in
+                DispatchQueue.main.async { // Make sure UI updates happen on the main thread
+                    switch result {
+                    case .success(let details):
+                        print("Successfully fetched details for \(details.name)")
+
+                        // Get the storyboard
+                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+
+                        // Create an instance of the detail view controller from the storyboard
+                        if let detailViewController = storyboard.instantiateViewController(withIdentifier: "PokemonDetailViewController") as? PokemonDetailViewController {
+                            // Pass the selected Pokemon details to the detail view controller
+                            detailViewController.pokemonDetails = details
+
+                            // Present the detail view controller
+                            self.navigationController?.pushViewController(detailViewController, animated: true)
+                        }
+
+                    case .failure(let error):
+                        print("Failed to fetch details: \(error)")
+                        // Handle error, perhaps by showing an alert to the user
+                    }
+                }
+            }
+        } else {
+            print("Failed to retrieve URL for selected Pokemon")
         }
-    }
-    
-    // MARK: - Navigation
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
+    } //End of func
+
+
     
     
-}
+    
+}//End of class
